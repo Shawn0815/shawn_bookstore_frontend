@@ -5,14 +5,26 @@
       Categories
     </button>
     <ul>
+      <!-- 增加所有書籍下拉式選單 -->
+      <li>
+        <router-link
+          tabindex="1"
+          to="/books"
+          class="header-dropdown unselected-link"
+        >
+          所有書籍
+        </router-link>
+      </li>
       <template v-for="category in $store.state.categories">
-        <li :key="category.categoryId">
+        <!-- key 改為 category（本身就是字串） -->
+        <li :key="category">
+          <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'category', params: { name: category.name } }"
+            :to="{ name: 'books', query: { category: category } }"
             class="header-dropdown unselected-link"
           >
-            {{ category.name }}
+            {{ category }}
           </router-link>
         </li>
       </template>
@@ -28,7 +40,7 @@ export default {
 
 <style scoped>
 .categories-button {
-  background-color: #2aa77a;
+  background-color: #B55A30; /* 調整 category 按鈕顏色 */
   color: var(--card-background-color);
   float: left;
   width: 150px;
@@ -64,10 +76,11 @@ export default {
   display: block;
   padding: 0.25em 0.25em;
   border-radius: 8px;
-  height: 25px;
   color: var(--primary-color);
   background-color: var(--secondary-background-color);
   text-decoration: none;
+  margin-top: 1px;
+  margin-bottom: 5px; /* 調整 category 下拉式選單的上下間距 */
 }
 
 .header-dropdown.unselected-link:hover,

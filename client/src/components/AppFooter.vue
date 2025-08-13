@@ -50,7 +50,7 @@ footer {
 }
 .social-media-icons {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end; /* 修改：避免warning */
   font-size: large;
   flex-direction: row;
   margin-right: 3em;

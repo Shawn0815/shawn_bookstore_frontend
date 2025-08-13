@@ -12,17 +12,13 @@ const apiUrl =
   "api";
 
 export default {
-  fetchCategories() {
-    const url =
-      location.protocol +
-      "//" +
-      location.hostname +
-      portFrom[location.protocol] +
-      process.env.BASE_URL +
-      "api" +
-      "/categories";
-    console.log("GET from " + url);
-    return fetch(url)
+  // call 後端 /books API 取得所有書籍
+  fetchAllBooks() {
+    const books_url = "http://localhost:8080/books";
+
+    console.log("GET from " + books_url);
+    
+    return fetch(books_url)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -30,21 +26,22 @@ export default {
         throw new Error("Network response was not ok.");
       })
       .catch((reason) => {
-        console.log("Error fetching category data", reason);
+        console.log("Error fetching books data", reason);
+        throw reason;
       });
   },
-  fetchSelectedCategoryBooks(name) {
-    const books_url =
-      location.protocol +
-      "//" +
-      location.hostname +
-      portFrom[location.protocol] +
-      process.env.BASE_URL +
-      "api" +
-      "/categories/" +
-      "name/" +
-      name +
-      "/books";
+  // call 後端 /books?xxx API 取得特定篩選條件的書籍
+  fetchBooksByFilter(filters) {
+    // 建立 URLSearchParams 物件，它會自動將物件轉換成 URL 查詢字串
+    const queryParams = new URLSearchParams(filters);
+
+    let books_url = "http://localhost:8080/books";
+
+    // 如果有查詢參數，就加到 URL 後面
+    if (queryParams.toString()) {
+      books_url += `?${queryParams.toString()}`;
+    }
+
     console.log("GET from " + books_url);
     return fetch(books_url)
       .then((response) => {
@@ -54,7 +51,7 @@ export default {
         throw new Error("Network response was not ok.");
       })
       .catch((reason) => {
-        console.log("Error fetching category data", reason);
+        console.log("Error fetching books data", reason);
         throw reason;
       });
   },

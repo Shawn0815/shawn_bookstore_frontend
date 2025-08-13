@@ -1,22 +1,41 @@
 <template>
   <nav class="category-nav">
     <ul class="category-buttons unselected-category-button">
+      <!-- 增加所有書及標籤 -->
+      <li v-if=!$route.query.category
+          class="button category-buttons selected-category-button"
+          id="button selected-category-button"
+      >
+        所有書籍
+      </li>
+      <li v-else>
+        <router-link
+          tabindex="1"
+          to="/books"
+          class="button category-buttons unselected-category-button"
+        >
+          所有書籍
+        </router-link>
+      </li>
       <template v-for="category in $store.state.categories">
+        <!-- key 為 category 本身，因為從 categories 取出的元素本身就是字串 -->
+         <!-- 決定顯示 slected 設定的方式：用 query 判斷路由是否有 category 參數 -->
         <li
-          :key="category.categoryId"
-          v-if="$store.state.selectedCategoryName === category.name"
+          :key="category"
+          v-if="$route.query.category && $store.state.selectedCategoryName === category"
           class="button category-buttons selected-category-button"
           id="button selected-category-button"
         >
-          {{ category.name }}
+          {{ category }}
         </li>
-        <li :key="category.categoryId" v-else>
+        <li :key="category" v-else>
+          <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'category', params: { name: category.name } }"
+            :to="{ name: 'books', query: { category: category } }"
             class="button category-buttons unselected-category-button"
           >
-            {{ category.name }}
+            {{ category }}
           </router-link>
         </li>
       </template>
@@ -35,7 +54,8 @@ export default {
   background-color: var(--primary-color);
   border-radius: 10px;
   border: var(--primary-color) 3px solid;
-  width: 10%;
+  width: auto; /* 自動寬度 */
+  white-space: nowrap; /* 確保 nav 不換行 */
   align-self: flex-start;
   margin-top: 10em;
   margin-left: 1em;

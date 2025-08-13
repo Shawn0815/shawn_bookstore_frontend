@@ -1,13 +1,15 @@
 <template>
   <div>
     <section>
+      <!-- 修改封面圖片 -->
       <img
-        src="@/assets/images/site/hero.png"
+        src="@/assets/images/site/bookstore.jpg"
         alt="Hero_img_LOTR"
         width="100%"
         height="auto"
       />
-      <router-link to="../category/Classics">
+      <!-- 按下 shop button 會跳轉到所有書籍頁面 -->
+      <router-link to="/books">
         <button class="shop-book-button">Shop Book</button>
       </router-link>
 

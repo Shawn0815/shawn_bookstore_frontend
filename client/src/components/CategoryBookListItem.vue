@@ -1,15 +1,17 @@
 <template>
   <li class="book-box">
     <div class="book-image">
+      <!-- img 要從 books 裡的 imageUrl 取得 -->
       <img
-        :src="require('@/assets/images/books/' + bookImageFileName(book))"
+        :src="book.imageUrl"
         :alt="book.title"
         style="height: 200px"
       />
     </div>
     <div class="book-title">{{ book.title }}</div>
     <div class="book-author">{{ book.author }}</div>
-    <div class="book-price">{{ book.price | asDollarsAndCents }}</div>
+    <!-- 改成以 $xxx 來呈現價錢 -->
+    <div class="book-price">${{ book.price }}</div>
     <button class="button add-to-cart" @click="addToCart(book)">
       Add to Cart
     </button>

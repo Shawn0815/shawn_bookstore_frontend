@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
-import Category from "./views/Category.vue";
+import BookPage from "./views/BookPage.vue";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
 import Confirmation from "./views/Confirmation";
@@ -20,14 +20,10 @@ export default new Router({
       alias: ["/home", "/index.html"],
     },
     {
-      path: "/category/:name",
-      name: "category",
-      component: Category,
-      props: true,
-    },
-    {
-      path: "/category",
-      redirect: "category/Classics",
+      // 所有書籍都同個路由，差在後面參數（用 query 取得）
+      path: "/books",
+      name: "books",
+      component: BookPage,
     },
     {
       path: "/cart",

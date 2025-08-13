@@ -13,11 +13,12 @@
   --default-text-color: #111;
   --neutral-color: #C4C4C4;
 
-  --primary-color: #078054;
-  --secondary-color: #20009F;
+  /* 調整為大地色系 */
+  --primary-color: #8B4513;
+  --secondary-color: #9A6F4E;
   --primary-color-dark: darkblue;
   --primary-background-color: whitesmoke;
-  --secondary-background-color: #FFFBDB;
+  --secondary-background-color: #FBF8F1;
   --card-background-color: #F7FFC8;
 }
 
@@ -96,10 +97,19 @@ body {
   color: var(--default-text-color);
   font-family: var(--default-font-family);
   font-size: var(--default-font-size);
-  margin: 0 auto;
-  max-width: 70rem;
-  max-height: 70rem;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+#app {
+  /* 讓 #app 填滿 body 的所有空間 */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 /* LINKS */
 
 a,
@@ -241,10 +251,3 @@ a:active {
   margin-top: 0.43em;
   margin-left: 2.5rem;
 }
-
-
-
-
-
-
-
