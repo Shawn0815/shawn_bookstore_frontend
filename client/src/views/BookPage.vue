@@ -32,6 +32,7 @@ export default {
     const categoryName = this.$route.query.category;
 
     if (categoryName) { // 如果有參數
+      this.$store.dispatch("selectCategory", categoryName);
       this.$store.dispatch("fetchBooksByFilter", { category: categoryName })
       .catch(function () {self.$router.push("/404"); //'/404' triggers NotFound
       });
