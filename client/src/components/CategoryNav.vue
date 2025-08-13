@@ -11,7 +11,7 @@
       <li v-else>
         <router-link
           tabindex="1"
-          to="/books"
+          :to="{ name: 'books', query: $route.query.search ? { search: $route.query.search } : {} }"
           class="button category-buttons unselected-category-button"
         >
           所有書籍
@@ -22,7 +22,7 @@
          <!-- 決定顯示 slected 設定的方式：用 query 判斷路由是否有 category 參數 -->
         <li
           :key="category"
-          v-if="$route.query.category && $store.state.selectedCategoryName === category"
+          v-if="$route.query.category === category"
           class="button category-buttons selected-category-button"
           id="button selected-category-button"
         >
@@ -32,7 +32,12 @@
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'books', query: { category: category } }"
+            :to="{
+              name: 'books',
+              query: $route.query.search
+                ? { category: category, search: $route.query.search }
+                : { category: category }
+            }"
             class="button category-buttons unselected-category-button"
           >
             {{ category }}

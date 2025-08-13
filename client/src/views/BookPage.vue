@@ -28,12 +28,16 @@ export default {
   created: function () {
     const self = this;
 
-    // 從路由參數中取得類別名稱
-    const categoryName = this.$route.query.category;
+    // 從 query 中取出所有可能的篩選參數
+    const filters = Object.fromEntries(
+      Object.entries({
+        category: this.$route.query.category,
+        search: this.$route.query.search
+      }).filter(([, v]) => v !== undefined && v !== "")
+    );
 
-    if (categoryName) { // 如果有參數
-      this.$store.dispatch("selectCategory", categoryName);
-      this.$store.dispatch("fetchBooksByFilter", { category: categoryName })
+    if (filters) { // 如果有篩選條件
+      this.$store.dispatch("fetchBooksByFilter", filters)
       .catch(function () {self.$router.push("/404"); //'/404' triggers NotFound
       });
     } else { // 如果沒有參數

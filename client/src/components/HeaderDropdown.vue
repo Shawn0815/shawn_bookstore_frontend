@@ -9,7 +9,7 @@
       <li>
         <router-link
           tabindex="1"
-          to="/books"
+          :to="{ name: 'books', query: $route.query.search ? { search: $route.query.search } : {} }"
           class="header-dropdown unselected-link"
         >
           所有書籍
@@ -21,7 +21,12 @@
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'books', query: { category: category } }"
+            :to="{
+              name: 'books',
+              query: $route.query.search
+                ? { category: category, search: $route.query.search }
+                : { category: category }
+            }"
             class="header-dropdown unselected-link"
           >
             {{ category }}

@@ -27,16 +27,17 @@
       <button class="button login login-style">
         <strong class="top-text;"> WH </strong>
       </button>
-      <form action="category.html" class="search-form">
+      <form class="search-form" @submit.prevent="performSearch">
         <input
           type="text"
           class="search-bar"
-          placeholder="Search any book, album, etc"
+          placeholder="Search any book"
+          v-model="searchQuery"
         />
+        <button type="submit" class="search-button">
+          <i class="fa fa-search submit-style"></i>
+        </button>
       </form>
-      <button type="submit" class="search-button">
-        <i class="fa fa-search submit-style"></i>
-      </button>
     </section>
   </header>
 </template>
@@ -46,8 +47,37 @@ import HeaderDropdownMenu from "@/components/HeaderDropdown";
 export default {
   name: "AppHeader",
   components: { HeaderDropdownMenu },
-  component: {
-    HeaderDropdownMenu,
+  data() {
+    return {
+      searchQuery: "", // 新增一個資料屬性來綁定搜尋輸入
+    };
+  },
+  methods: {
+    // 處理搜尋邏輯，進行路由跳轉
+    performSearch() {
+      const query = {};
+
+      // 只要搜尋欄沒東西，回 /books
+      if (!this.searchQuery && this.$route.name == 'home') {
+          return;
+      }
+
+      // 如果目前路由有 category，保留它
+      if (this.$route.query.category) {
+        query.category = this.$route.query.category;
+      }
+
+      // 如果搜尋框有文字，帶 search
+      if (this.searchQuery && this.searchQuery.trim() !== "") {
+        query.search = this.searchQuery.trim();
+      }
+
+      // 跳轉到 /books，帶上 query
+      this.$router.push({
+        name: "books",
+        query: query
+      });
+    }
   },
 };
 </script>
@@ -73,9 +103,16 @@ header {
   grid-template-rows: 33% 33% 33%;
 }
 
+.search-form {
+  display: flex;
+  align-items: center; /* 垂直置中 */
+  width: 200%;
+  margin-top: -10px; /* 調整整個搜尋欄的位置 */
+}
+
 .search-bar {
-  padding: 0.1em;
-  width: 280%;
+  flex: 1;
+  padding: 0.15em;
   min-width: 120px;
   border-radius: 8px;
   border-style: none;
