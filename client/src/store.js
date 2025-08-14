@@ -105,24 +105,15 @@ export default new Vuex.Store({
     },
     // 獲取所有類別
     fetchCategories(context) {
-      // 檢查 allBooks 是否已經有資料
-      if (context.state.allBooks.length > 0) {
-        // 情境一：books 已存在，直接回傳
-        const categories = [...new Set(context.state.allBooks.map(book => book.category))];
-        console.log("Categories: ", categories);
-        context.commit("SET_CATEGORIES", categories);
-        return Promise.resolve(categories);
-      } else {
-        // 情境二：books 不存在，先執行 fetchAllBooks
-        return context.dispatch("fetchAllBooks")
-          .then(() => {
-            // 等 fetchAllBooks 成功後，再從 state 中提取類別
-            const categories = [...new Set(context.state.allBooks.map(book => book.category))];
-            console.log("Categories: ", categories);
-            context.commit("SET_CATEGORIES", categories);
-            return categories;
-          });
-      }
+      return ApiService.fetchCategories()
+        .then((categories) => {
+          console.log("Categories: ", categories);
+          context.commit("SET_CATEGORIES", categories);
+        })
+        .catch((reason) => {
+          console.log("Error fetching all categories:", reason);
+          throw reason;
+        });
     },
     addToCart(context, book) {
       context.commit("ADD_TO_CART", book);

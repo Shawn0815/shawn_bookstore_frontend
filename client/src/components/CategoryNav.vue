@@ -21,21 +21,21 @@
         <!-- key 為 category 本身，因為從 categories 取出的元素本身就是字串 -->
          <!-- 決定顯示 slected 設定的方式：用 query 判斷路由是否有 category 參數 -->
         <li
-          :key="category"
-          v-if="$route.query.category === category"
+          :key="category.category"
+          v-if="$route.query.category === category.category"
           class="button category-buttons selected-category-button"
           id="button selected-category-button"
         >
-          {{ category }}
+          {{ category.category }}
         </li>
-        <li :key="category" v-else>
+        <li :key="category.category" v-else>
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'books', query: getQuery({ category: category })}"
+            :to="{ name: 'books', query: getQuery({ category: category.category })}"
             class="button category-buttons unselected-category-button"
           >
-            {{ category }}
+            {{ category.category }}
           </router-link>
         </li>
       </template>

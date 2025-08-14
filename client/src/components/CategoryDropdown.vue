@@ -17,14 +17,14 @@
       </li>
       <template v-for="category in $store.state.categories">
         <!-- key 改為 category（本身就是字串） -->
-        <li :key="category">
+        <li :key="category.category">
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'books', query: getQuery({ category: category })}"
+            :to="{ name: 'books', query: getQuery({ category: category.category })}"
             class="category-dropdown unselected-link"
           >
-            {{ category }}
+            {{ category.category }}
           </router-link>
         </li>
       </template>
