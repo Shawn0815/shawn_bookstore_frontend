@@ -1,11 +1,12 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
-import BookPage from "./views/BookPage.vue";
+import BookList from "./views/BookList.vue";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
 import Confirmation from "./views/Confirmation";
 import NotFound from "./views/NotFound.vue";
+import BookDetail from "@/views/BookDetail.vue";
 
 Vue.use(Router);
 
@@ -23,12 +24,23 @@ export default new Router({
       // 所有書籍都同個路由，差在後面參數（用 query 取得）
       path: "/books",
       name: "books",
-      component: BookPage,
+      component: BookList,
+    },
+    {
+      path: "/books/:id", // 動態路由，id 為書籍編號
+      name: "bookDetail",
+      component: BookDetail,
+      props: true, // 將 id 傳入元件作為 props
     },
     {
       path: "/cart",
       name: "cart",
       component: Cart,
+    },
+    {
+      path: "/login",
+      name: "login",
+      // component: Login,
     },
     {
       path: "*",

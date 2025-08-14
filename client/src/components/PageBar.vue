@@ -1,0 +1,89 @@
+<template>
+  <div class="pagination-container">
+    <!-- 上一頁 -->
+    <router-link
+      :to="getPageLink(currentPage - 1)"
+      class="page-link"
+      :class="{ disabled: currentPage === 1 }"
+    >
+      上一頁
+    </router-link>
+
+    <!-- 所有頁碼 -->
+    <router-link
+      v-for="page in totalPages"
+      :key="page"
+      :to="getPageLink(page)"
+      class="page-link"
+      :class="{ active: page === currentPage }"
+    >
+      {{ page }}
+    </router-link>
+
+    <!-- 下一頁 -->
+    <router-link
+      :to="getPageLink(currentPage + 1)"
+      class="page-link"
+      :class="{ disabled: currentPage === totalPages }"
+    >
+      下一頁
+    </router-link>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+
+export default {
+  name: "PageBar",
+  computed: {
+    ...mapState(["currentPage", "totalPages"])
+  },
+  methods: {
+    getPageLink(pageNumber) {
+      // 確保不會出界
+      if (pageNumber < 1) pageNumber = 1;
+      if (pageNumber > this.totalPages) pageNumber = this.totalPages;
+
+      return {
+        path: this.$route.path,
+        query: {
+          ...this.$route.query,
+          page: pageNumber
+        }
+      };
+    }
+  }
+};
+</script>
+
+<style scoped>
+.pagination-container {
+  display: flex;
+  justify-content: center; /* 置中對齊 */
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.page-link {
+  padding: 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  min-width: 32px;
+  text-align: center;
+}
+
+.page-link.active {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.page-link.disabled {
+  pointer-events: none; /* 禁止點擊 */
+  opacity: 0.5;
+}
+</style>

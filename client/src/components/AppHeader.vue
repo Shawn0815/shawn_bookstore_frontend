@@ -1,10 +1,17 @@
 <template>
   <header class="container">
-    <section class="header-dropdown-part">
-      <header-dropdown-menu></header-dropdown-menu>
-    </section>
+    <!-- 新增一個包裹 category + sort 的 div，方便水平排列 -->
+    <div class="left-dropdowns">
+      <section class="category-dropdown-part">
+        <category-dropdown-menu></category-dropdown-menu>
+      </section>
+      <section class="sort-dropdown-part">
+        <sort-dropdown></sort-dropdown>
+      </section>
+    </div>
+
     <section class="text-logo">
-      <router-link to="/">
+      <router-link to="/books">
         <img
           src="@/assets/images/site/Bookshop_logo.png"
           alt="Book Galaxy Logo"
@@ -12,6 +19,7 @@
         />
       </router-link>
     </section>
+
     <section class="login-cart-and-search-bar">
       <button class="button cart">
         <router-link to="/cart">
@@ -24,9 +32,13 @@
           </span>
         </router-link>
       </button>
+
       <button class="button login login-style">
-        <strong class="top-text;"> WH </strong>
+        <router-link to="/login">
+          <strong class="top-text;"> Login </strong>
+        </router-link>
       </button>
+
       <form class="search-form" @submit.prevent="performSearch">
         <input
           type="text"
@@ -43,10 +55,15 @@
 </template>
 
 <script>
-import HeaderDropdownMenu from "@/components/HeaderDropdown";
+import CategoryDropdownMenu from "@/components/CategoryDropdown";
+import SortDropdown from "@/components/SortDropdown";
+
 export default {
   name: "AppHeader",
-  components: { HeaderDropdownMenu },
+  components: { 
+    CategoryDropdownMenu,
+    SortDropdown // 新增 SortDropdown
+  },
   data() {
     return {
       searchQuery: "", // 新增一個資料屬性來綁定搜尋輸入
@@ -54,28 +71,27 @@ export default {
   },
   methods: {
     // 處理搜尋邏輯，進行路由跳轉
+    getQuery(newQuery) {
+      const filteredQuery = { ...this.$route.query };
+      
+      if (newQuery.search && newQuery.search.trim() !== "") {
+        filteredQuery.search = newQuery.search.trim();
+      } else {
+        delete filteredQuery.search; // 移除空的 search
+      }
+
+      // 只有當 page 不是 1 時，才重置
+      if (filteredQuery.page && filteredQuery.page !== 1) {
+        filteredQuery.page = 1;
+      }
+
+      return filteredQuery;
+      
+    },
     performSearch() {
-      const query = {};
-
-      // 只要搜尋欄沒東西，回 /books
-      if (!this.searchQuery && this.$route.name == 'home') {
-          return;
-      }
-
-      // 如果目前路由有 category，保留它
-      if (this.$route.query.category) {
-        query.category = this.$route.query.category;
-      }
-
-      // 如果搜尋框有文字，帶 search
-      if (this.searchQuery && this.searchQuery.trim() !== "") {
-        query.search = this.searchQuery.trim();
-      }
-
-      // 跳轉到 /books，帶上 query
       this.$router.push({
         name: "books",
-        query: query
+        query: this.getQuery({ search: this.searchQuery })
       });
     }
   },
@@ -119,11 +135,16 @@ header {
   text-align: center;
 }
 
-.header-dropdown-part {
-  text-align: center;
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 33% 33% 33%;
+/* 新增 flex 排列 category + sort */
+.left-dropdowns {
+  display: flex;
+  gap: 2em; /* category 與 sort 間距 */
+  align-items: center;
+}
+
+.category-dropdown-part,
+.sort-dropdown-part {
+  position: relative;
 }
 
 .submit-style {

@@ -14,8 +14,10 @@ export default new Vuex.Store({
     books: [], // 用來取得目前頁面顯示的書籍（可能是篩選後的或是所有的）
     categories: [], // 用來存放完整的類別清單
     selectedCategoryName: "", // 用來存放目前選擇的類別
+    currentPage: 1,
+    totalPages: 1,
     orderDetails: null,
-    cart: new ShoppingCart(),
+    cart: new ShoppingCart()
   },
   mutations: {
     SET_ALL_BOOKS(state, books) {
@@ -29,6 +31,12 @@ export default new Vuex.Store({
     },
     SELECT_CATEGORY(state, categoryName) {
       state.selectedCategoryName = categoryName;
+    },
+    SET_CURRENT_PAGE(state, page) {
+    state.currentPage = page;
+  },
+    SET_TOTAL_PAGES(state, total) {
+      state.totalPages = total;
     },
     ADD_TO_CART(state, book) {
       state.cart.addItem(book, 1);
@@ -66,10 +74,10 @@ export default new Vuex.Store({
     // 獲取所有書籍
     fetchAllBooks(context) {
       return ApiService.fetchAllBooks()
-        .then((books) => {
-          console.log("All books: ", books);
-          context.commit("SET_ALL_BOOKS", books);
-          context.commit('SET_BOOKS', books); // 預設顯示所有書籍
+        .then((result) => {
+          console.log("All books: ", result.books);
+          context.commit("SET_ALL_BOOKS", result.books);
+          context.commit('SET_BOOKS', result.books); // 預設顯示所有書籍
         })
         .catch((reason) => {
           console.log("Error fetching all books:", reason);
@@ -79,9 +87,16 @@ export default new Vuex.Store({
     // 根據篩選條件獲取所有書籍
     fetchBooksByFilter(context, filters = {}) {
       return ApiService.fetchBooksByFilter(filters)
-        .then((filteredBooks) => {
-          console.log("Filtered books: ", filteredBooks);
-          context.commit("SET_BOOKS", filteredBooks);
+        .then((result) => {
+          console.log("Filtered books: ", result.books);
+          context.commit("SET_BOOKS", result.books);
+
+          const totalPages = Math.ceil(result.total / result.limit); // 後端 total / limit
+          console.log("Limit: ", result.limit);
+          console.log("Total books: ", result.total);
+          console.log("Total pages: ", totalPages);
+          context.commit("SET_TOTAL_PAGES", totalPages);
+          context.commit("SET_CURRENT_PAGE", parseInt(result.page) || 1);
         })
         .catch((reason) => {
           console.log("Error fetching filtered books:", reason);

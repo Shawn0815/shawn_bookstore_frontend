@@ -1,21 +1,30 @@
 <template>
   <li class="book-box">
     <div class="book-image">
-      <!-- img 要從 books 裡的 imageUrl 取得 -->
-      <img
-        :src="book.imageUrl"
-        :alt="book.title"
-        style="height: 200px"
-      />
+      <!-- 圖片點擊跳到書籍詳細頁 -->
+      <router-link :to="{ name: 'bookDetail', params: { id: book.bookId } }">
+        <!-- img 要從 books 裡的 imageUrl 取得 -->
+        <img :src="book.imageUrl" :alt="book.title" style="height: 200px"/>
+      </router-link>
     </div>
-    <div class="book-title">{{ book.title }}</div>
-    <div class="book-author">{{ book.author }}</div>
+    
+    <div class="book-title">
+      <router-link :to="{ name: 'bookDetail', params: { id: book.bookId } }">
+        {{ book.title }}
+      </router-link>
+    </div>
+    <div class="book-author">
+      {{ book.author }}
+    </div>
+    <div class="book-date">
+      {{ book.publishedDate.replace(/-/g, '/') }}
+    </div>
     <!-- 改成以 $xxx 來呈現價錢 -->
     <div class="book-price">${{ book.price }}</div>
     <button class="button add-to-cart" @click="addToCart(book)">
       Add to Cart
     </button>
-    <button v-if="book.isPublic" class="button read-now">Read Now</button>
+    <!-- <button v-if="book.isPublic" class="button read-now">Read Now</button> -->
   </li>
 </template>
 
@@ -72,12 +81,23 @@ export default {
 }
 
 .book-author {
-  color: var(--primary-color);
-  font-style: italic;
-  font-weight: bold;
   font-family: "Nunito", sans-serif;
   font-size: 14px;
+  color: var(--primary-color);
+  display: flex;
+  font-style: italic;
+  font-weight: bold;
 }
+
+.book-date {
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  color: var(--primary-color);
+  display: flex;
+  font-style: normal;
+  font-weight: normal;
+}
+
 
 .book-price {
   color: rgb(0, 82, 57);

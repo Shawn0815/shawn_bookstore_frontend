@@ -10,16 +10,14 @@
       <li v-for="item in $store.state.cart.items" :key="item.book.bookId">
         <div class="cart-book-image">
           <img
-            :src="
-              require('@/assets/images/books/' + bookImageFileName(item.book))
-            "
+            :src="item.book.imageUrl"
             :alt="item.book.title"
             style="width: 100px; height: auto"
           />
         </div>
         <div class="cart-book-title">{{ item.book.title }}</div>
         <div class="cart-book-price">
-          {{ item.book.price | asDollarsAndCents }}
+          ${{ item.book.price }}
         </div>
         <div class="cart-book-quantity">
           <button
@@ -38,7 +36,7 @@
           </button>
         </div>
         <div class="subtotal">
-          {{ (item.quantity * item.book.price) | asDollarsAndCents }}
+          ${{ (item.quantity * item.book.price) }}
         </div>
         <!--price times quantity-->
       </li>
@@ -49,7 +47,7 @@
           {{ $store.state.cart.numberOfItems }}
         </div>
         <div class="cart-book-price">
-          {{ $store.state.cart.subtotal | asDollarsAndCents }}
+          ${{ $store.state.cart.subtotal}}
         </div>
       </li>
     </ul>

@@ -7,10 +7,7 @@
       <div style="padding: 3em 1.5em">Your cart is empty.</div>
       <router-link
         tabindex="1"
-        :to="{
-          name: 'category',
-          params: { name: $store.state.selectedCategoryName || 'Classics' },
-        }"
+        :to="{name: 'books'}"
       >
         <button class="button continue-shop-buttons">Continue Shopping</button>
       </router-link>
@@ -29,10 +26,7 @@
       <div class="cart-buttons">
         <router-link
           tabindex="1"
-          :to="{
-            name: 'category',
-            params: { name: $store.state.selectedCategoryName || 'Classics' },
-          }"
+          :to="{name: 'books'}"
         >
           <button class="button continue-shop-buttons">
             Continue Shopping

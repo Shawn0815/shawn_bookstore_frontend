@@ -220,7 +220,7 @@ import {
 import isCreditCard from "validator/lib/isCreditCard";
 import isMobilePhone from "validator/lib/isMobilePhone";
 
-const phone = (value) => isMobilePhone(value, "en-US");
+const phone = (value) => isMobilePhone(value);
 const creditCard = (value) => isCreditCard(value);
 
 export default {
@@ -292,25 +292,31 @@ export default {
       } else {
         this.checkoutStatus = "PENDING";
         setTimeout(() => {
-          this.$store
-            .dispatch("placeOrder", {
-              name: this.name,
-              address: this.address,
-              phone: this.phone,
-              email: this.email,
-              ccNumber: this.ccNumber,
-              ccExpiryMonth: this.ccExpiryMonth,
-              ccExpiryYear: this.ccExpiryYear,
-            })
-            .then(() => {
-              this.checkoutStatus = "OK";
-              this.$router.push({ name: "confirmation" });
-            })
-            .catch((reason) => {
-              this.checkoutStatus = "SERVER_ERROR";
-              console.log("Error placing order", reason);
-            });
+          // 模擬成功
+          this.checkoutStatus = "OK";
+          this.$router.push({ name: "confirmation" });
         }, 1000);
+
+        // setTimeout(() => {
+        //   this.$store
+        //     .dispatch("placeOrder", {
+        //       name: this.name,
+        //       address: this.address,
+        //       phone: this.phone,
+        //       email: this.email,
+        //       ccNumber: this.ccNumber,
+        //       ccExpiryMonth: this.ccExpiryMonth,
+        //       ccExpiryYear: this.ccExpiryYear,
+        //     })
+        //     .then(() => {
+        //       this.checkoutStatus = "OK";
+        //       this.$router.push({ name: "confirmation" });
+        //     })
+        //     .catch((reason) => {
+        //       this.checkoutStatus = "SERVER_ERROR";
+        //       console.log("Error placing order", reason);
+        //     });
+        // }, 1000);
       }
     },
 

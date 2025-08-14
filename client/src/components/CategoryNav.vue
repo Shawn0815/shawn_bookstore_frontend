@@ -11,7 +11,7 @@
       <li v-else>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: $route.query.search ? { search: $route.query.search } : {} }"
+          :to="{ name: 'books', query: getQuery({ category: null }) }"
           class="button category-buttons unselected-category-button"
         >
           所有書籍
@@ -32,12 +32,7 @@
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{
-              name: 'books',
-              query: $route.query.search
-                ? { category: category, search: $route.query.search }
-                : { category: category }
-            }"
+            :to="{ name: 'books', query: getQuery({ category: category })}"
             class="button category-buttons unselected-category-button"
           >
             {{ category }}
@@ -51,6 +46,28 @@
 <script>
 export default {
   name: "CategoryNav",
+  methods: {
+    // 保留其他 query 參數（search, sort），只修改 category
+    getQuery(newQuery) {
+      const filteredQuery = { ...this.$route.query };
+
+      // 遍歷 newQuery，如果值是 null 就刪掉對應的 query
+      Object.keys(newQuery).forEach(key => {
+        if (newQuery[key] === null) {
+          delete filteredQuery[key];
+        } else {
+          filteredQuery[key] = newQuery[key];
+        }
+      });
+
+      // 只有當 page 不是 1 時，才重置
+      if (filteredQuery.page && filteredQuery.page !== 1) {
+        filteredQuery.page = 1;
+      }
+
+      return filteredQuery;
+    }
+  },
 };
 </script>
 

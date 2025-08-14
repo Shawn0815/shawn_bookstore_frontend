@@ -1,16 +1,16 @@
 <template>
-  <div class="header-dropdown">
+  <div class="category-dropdown">
     <button class="button categories-button" style="float: left">
       <i class="fas fa-caret-down" style="float: left"></i>
-      Categories
+      分類
     </button>
     <ul>
       <!-- 增加所有書籍下拉式選單 -->
       <li>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: $route.query.search ? { search: $route.query.search } : {} }"
-          class="header-dropdown unselected-link"
+          :to="{ name: 'books', query: getQuery({ category: null }) }"
+          class="category-dropdown unselected-link"
         >
           所有書籍
         </router-link>
@@ -21,13 +21,8 @@
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{
-              name: 'books',
-              query: $route.query.search
-                ? { category: category, search: $route.query.search }
-                : { category: category }
-            }"
-            class="header-dropdown unselected-link"
+            :to="{ name: 'books', query: getQuery({ category: category })}"
+            class="category-dropdown unselected-link"
           >
             {{ category }}
           </router-link>
@@ -39,7 +34,29 @@
 
 <script>
 export default {
-  name: "HeaderDropdownMenu",
+  name: "CategoryDropdownMenu",
+  methods: {
+    // 保留其他 query 參數（search, sort），只修改 category
+    getQuery(newQuery) {
+      const filteredQuery = { ...this.$route.query };
+
+      // 遍歷 newQuery，如果值是 null 就刪掉對應的 query
+      Object.keys(newQuery).forEach(key => {
+        if (newQuery[key] === null) {
+          delete filteredQuery[key];
+        } else {
+          filteredQuery[key] = newQuery[key];
+        }
+      });
+
+      // 只有當 page 不是 1 時，才重置
+      if (filteredQuery.page && filteredQuery.page !== 1) {
+        filteredQuery.page = 1;
+      }
+
+      return filteredQuery;
+    }
+  },
 };
 </script>
 
@@ -49,7 +66,7 @@ export default {
   color: var(--card-background-color);
   float: left;
   width: 150px;
-  height: 35px;
+  height: 40px;
   box-shadow: 0 15px 25px 0 rgba(0, 0, 0, 0.19);
   border-style: none;
   border-radius: 8px;
@@ -60,13 +77,13 @@ export default {
   color: var(--primary-color);
 }
 
-.header-dropdown {
+.category-dropdown {
   grid-column: 1/2;
   grid-row: -3/-2;
   text-align: center;
 }
 
-.header-dropdown ul {
+.category-dropdown ul {
   /*drop down list*/
   display: none;
   background-color: var(--secondary-background-color);
@@ -77,7 +94,7 @@ export default {
   border-radius: 8px;
 }
 
-.header-dropdown.unselected-link {
+.category-dropdown.unselected-link {
   display: block;
   padding: 0.25em 0.25em;
   border-radius: 8px;
@@ -88,8 +105,8 @@ export default {
   margin-bottom: 5px; /* 調整 category 下拉式選單的上下間距 */
 }
 
-.header-dropdown.unselected-link:hover,
-.header-dropdown.unselected-link:active {
+.category-dropdown.unselected-link:hover,
+.category-dropdown.unselected-link:active {
   display: block;
   height: 35px;
   font-size: large;
@@ -100,11 +117,14 @@ export default {
   text-decoration: none;
 }
 
-.header-dropdown:hover ul {
+.category-dropdown:hover ul {
   /*different when hover*/
-  display: inline-block;
+  display: block;
   position: absolute;
-  min-width: 7em;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 130px;
   z-index: 1;
   cursor: pointer;
 }
