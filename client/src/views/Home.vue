@@ -1,49 +1,91 @@
 <template>
-  <div>
-    <section>
-      <!-- 修改封面圖片 -->
-      <img
-        src="@/assets/images/site/bookstore.jpg"
-        alt="Hero_img_LOTR"
-        width="100%"
-        height="auto"
-      />
-      <!-- 按下 shop button 會跳轉到所有書籍頁面 -->
-      <router-link to="/books">
-        <button class="shop-book-button">Shop Book</button>
-      </router-link>
-
-      <p class="welcome-text">Start your journey with us</p>
-    </section>
-  </div>
+  <section class="hero">
+    <img
+      src="@/assets/images/site/bookstore.jpg"
+      alt="Bookstore"
+      class="hero-img"
+    />
+    <div class="hero-text">
+      <h1>
+        <router-link :to="{ name: 'books' }">
+          Start your journey with us
+        </router-link>
+      </h1>
+    </div>
+  </section>
 </template>
 
-<script></script>
+<script>
+export default { name: "Home" };
+</script>
 
 <style scoped>
-.welcome-text {
-  width: 20em;
-  font-size: 24px;
-  font-weight: bolder;
-  font-style: italic;
-  font-family: "Crimson Text", sans-serif;
-  color: #005e3c;
+.hero {
+  position: relative;
+  flex: 1; /* 填滿 header 和 footer 之間的空間 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* 大圖鋪滿 Hero 區域 */
+.hero-img {
   position: absolute;
-  padding: 1rem;
-  top: 20rem;
-  left: 41%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-.category-image-items a {
+/* 漸層 */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1)
+  );
+  z-index: 5;
+}
+
+/* 文字置中 */
+.hero-text {
+  position: absolute;
+  top: 25%;   /* 上移一點 */
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  cursor: pointer;
+
+  font-size: 2rem;
+  font-weight: 400;
+  font-family: 'Georgia', serif;
+  color: #fff;
+
+  /* 讓文字有陰影，避免背景太亮時消失 */
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  z-index: 10; /* 確保蓋在圖片上 */
 }
 
-.category-image-items div {
-  padding: 0.5em 0;
-  background: rgba(0, 0, 0, 0.5); /* last # is percent opacity */
-  color: white;
-  transform: translateY(-2.25em);
-  margin-bottom: -2em;
+.hero-text h1 {
+  font-family: "Crimson Text", serif; /* 文青書香感字體 */
+  font-size: 3.5rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #fdfdfd;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  
 }
+
+.hero-text h1 a {
+  text-decoration: none;  /* 移除底線 */
+  color: inherit;         /* 跟 h1 一樣的顏色 */
+}
+
 </style>

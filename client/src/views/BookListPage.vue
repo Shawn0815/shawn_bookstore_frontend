@@ -1,11 +1,11 @@
-<!-- 把原來的 Category.vue 改名為 BookList.vue -->
+<!-- 把原來的 Category.vue 改名為 BookListPage.vue -->
 <!-- 因為它同時包含顯示所有書籍以及特定類別書籍（未來還可以括充） -->
 
 <template>
   <div>
-    <div class="category-page">
+    <div class="book-list-page">
       <category-nav></category-nav>
-      <category-book-list></category-book-list>
+      <book-grid></book-grid>
     </div>
     
     <page-bar
@@ -15,26 +15,22 @@
   </div>
 </template>
 
+
 <script>
 
-import PageBar from "@/components/PageBar";
 import CategoryNav from "@/components/CategoryNav";
-import CategoryBookList from "@/components/CategoryBookList";
+import BookGrid from "@/components/BookGrid";
+import PageBar from "@/components/PageBar";
 
 export default {
-  name: "BookList",
+  name: "BookListPage",
   components: {
     PageBar,
     CategoryNav,
-    CategoryBookList,
+    BookGrid,
   },
 
   /*fetch books from database*/
-  data: function () {
-    return {
-      cateName: this.cateName,
-    };
-  },
   created: function () {
     const self = this;
 
@@ -64,7 +60,7 @@ export default {
 </script>
 
 <style scoped>
-.category-page {
+.book-list-page {
   background-color: var(--secondary-background-color);
   display: flex;
   flex-direction: row;

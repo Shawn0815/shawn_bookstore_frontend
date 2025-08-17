@@ -1,20 +1,10 @@
-const portFrom = {
-  "http:": ":8080",
-  "https:": ":8443",
-};
-
-const apiUrl =
-  location.protocol +
-  "//" +
-  location.hostname +
-  portFrom[location.protocol] +
-  process.env.BASE_URL +
-  "api";
+// 取得後端 base url 路徑
+const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 
 export default {
   // call 後端 /books API 取得所有書籍
   fetchAllBooks() {
-    const url = "http://localhost:8080/books";
+    const url = `${API_BASE_URL}/books`;
 
     console.log("GET from " + url);
     
@@ -35,7 +25,7 @@ export default {
     // 建立 URLSearchParams 物件，它會自動將物件轉換成 URL 查詢字串
     const queryParams = new URLSearchParams(filters);
 
-    let url = "http://localhost:8080/books";
+    let url = `${API_BASE_URL}/books`;
 
     // 如果有查詢參數，就加到 URL 後面
     if (queryParams.toString()) {
@@ -57,7 +47,7 @@ export default {
   },
   // call 後端 /categories API 取得所有類別
   fetchCategories() {
-    const url = "http://localhost:8080/categories";
+    const url = `${API_BASE_URL}/categories`;
 
     console.log("GET from " + url);
     
@@ -74,8 +64,10 @@ export default {
       });
   },
   placeOrder(order) {
-    console.log("POSTing to " + `${apiUrl}/orders`);
-    return fetch(`${apiUrl}/orders`, {
+    const url = `${API_BASE_URL}/orders`;
+
+    console.log("POSTing to " + url);
+    return fetch(url, {
       method: "POST",
       body: JSON.stringify(order),
       headers: {

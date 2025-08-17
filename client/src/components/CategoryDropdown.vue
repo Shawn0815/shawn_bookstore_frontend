@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: "CategoryDropdownMenu",
+  name: "CategoryDropdown",
   methods: {
     // 保留其他 query 參數（search, sort），只修改 category
     getQuery(newQuery) {
@@ -63,7 +63,7 @@ export default {
 <style scoped>
 .categories-button {
   background-color: #B55A30; /* 調整 category 按鈕顏色 */
-  color: var(--card-background-color);
+  color: #ffffff;
   float: left;
   width: 150px;
   height: 40px;

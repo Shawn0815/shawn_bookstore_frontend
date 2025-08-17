@@ -4,7 +4,7 @@
       <!-- 圖片點擊跳到書籍詳細頁 -->
       <router-link :to="{ name: 'bookDetail', params: { id: book.bookId } }">
         <!-- img 要從 books 裡的 imageUrl 取得 -->
-        <img :src="book.imageUrl" :alt="book.title" style="height: 200px"/>
+        <img :src="book.imageUrl" :alt="book.title" style="height: 190px"/>
       </router-link>
     </div>
     
@@ -22,15 +22,16 @@
     <!-- 改成以 $xxx 來呈現價錢 -->
     <div class="book-price">${{ book.price }}</div>
     <button class="button add-to-cart" @click="addToCart(book)">
-      Add to Cart
+      加入購物車
     </button>
     <!-- <button v-if="book.isPublic" class="button read-now">Read Now</button> -->
   </li>
 </template>
 
+
 <script>
 export default {
-  name: "categoryBookListItem",
+  name: "BookCard",
   props: {
     book: {
       type: Object,
@@ -48,6 +49,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 #book-boxes {
   display: flex;
@@ -60,7 +62,7 @@ export default {
 .book-box {
   display: grid;
   width: 310px;
-  height: 225px;
+  height: 205px;
   grid-template-columns: 50% 50%;
   grid-template-rows: min-content min-content min-content 1fr min-content;
   background-color: var(--secondary-background-color);

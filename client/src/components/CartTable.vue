@@ -9,11 +9,13 @@
 
       <li v-for="item in $store.state.cart.items" :key="item.book.bookId">
         <div class="cart-book-image">
-          <img
-            :src="item.book.imageUrl"
-            :alt="item.book.title"
-            style="width: 100px; height: auto"
-          />
+          <router-link :to="{ name: 'bookDetail', params: { id: item.book.bookId } }">
+            <img
+              :src="item.book.imageUrl"
+              :alt="item.book.title"
+              style="width: 100px; height: auto"
+            />
+          </router-link>
         </div>
         <div class="cart-book-title">{{ item.book.title }}</div>
         <div class="cart-book-price">
@@ -75,7 +77,6 @@ export default {
   display: grid;
   grid-template-columns: max-content minmax(10em, 20em) repeat(3, max-content); /*repeat 5 times, auto width*/
   row-gap: 1em;
-  padding: 1em;
   background-color: var(--secondary-background-color);
   margin: 0 auto; /*center*/
 }

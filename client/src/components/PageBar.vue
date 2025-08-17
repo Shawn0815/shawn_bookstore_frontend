@@ -62,22 +62,37 @@ export default {
   display: flex;
   justify-content: center; /* 置中對齊 */
   flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 16px;
+  gap: 6px;
+
+  /* 新增背景樣式 */
+  background-color: var(--secondary-background-color);
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.pagination-container a:hover {
+  background-color: #8B4513; 
+  color: #fff;
 }
 
 .page-link {
-  padding: 4px 10px;
+  padding: 6px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-decoration: none;
   color: #333;
-  min-width: 32px;
+  min-width: 36px;
   text-align: center;
+  background-color: white; /* 每個按鈕也有自己的底色 */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.page-link:hover {
+  background-color: #e6e6e6;
 }
 
 .page-link.active {
-  background-color: #4CAF50;
+  background-color: #8B4513; /* 深咖啡色呼應 header */
   color: white;
   font-weight: bold;
 }

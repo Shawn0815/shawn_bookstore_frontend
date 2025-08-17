@@ -1,13 +1,15 @@
 <template>
   <footer class="container">
     <section class="copyright">
-      <p>2021 Book Galaxy by Wenjun Han</p>
+      <p>2025 Book Galaxy by Shawn Yu</p>
     </section>
+
     <section class="links">
-      <router-link to="/">about</router-link>
+      <router-link to="/about">about</router-link>
       <router-link to="/">contact</router-link>
       <router-link to="/">directions</router-link>
     </section>
+
     <section class="links social-media-icons">
       <router-link to="/" class="social-media-icons-link"
         ><i class="fab fa-facebook-square"></i
@@ -30,15 +32,18 @@ export default {
 
 <style scoped>
 footer {
-  background: var(--secondary-background-color);
+  background: #A0522D;
   display: grid;
   grid-template-columns: 33% 33% 33%;
   gap: 1em;
+  padding: 7px 12px;      /* 新增 → 控制上下間距 */
+  align-items: center;    /* 新增 → 讓三欄內容垂直置中 */
 }
 
 .copyright {
-  color: var(--primary-color);
+  color: #dddddd;
   text-align: left;
+  margin-left: 30px;
 }
 
 .links {
@@ -46,26 +51,35 @@ footer {
   justify-content: center;
   font-size: large;
   flex-direction: row;
-  gap: 0.5em;
+  gap: 1em;
 }
+
+.links a,
+.links router-link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.links a:hover,
+.links router-link:hover {
+  color: #FFD700;          /* hover 時金色 */
+}
+
 .social-media-icons {
   display: flex;
   justify-content: flex-end; /* 修改：避免warning */
   font-size: large;
   flex-direction: row;
   margin-right: 3em;
-  gap: 0.8em;
+  gap: 1.5em;
 }
 
 .social-media-icons-link {
-  color: var(--primary-color);
   font-size: x-large;
   cursor: pointer;
 }
 
 .social-media-icons-link:hover {
-  color: purple;
-  font-size: x-large;
-  cursor: pointer;
+  color: #FFD700;          /* hover 時金色 */
 }
 </style>

@@ -116,7 +116,7 @@ export default {
 <style scoped>
 .sort-button {
   background-color: #B55A30;
-  color: var(--card-background-color);
+  color: #ffffff;
   float: left;
   width: 150px;
   height: 40px;

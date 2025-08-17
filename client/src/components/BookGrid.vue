@@ -3,19 +3,19 @@
     <!-- 統一從 books 取得要顯示的內容（設定不同 books 物件會改變） -->
     <template v-for="book in $store.state.books">
       <li :key="book.bookId">
-        <category-book-list-item :book="book"></category-book-list-item>
+        <book-card :book="book"></book-card>
       </li>
     </template>
   </ul>
 </template>
 
 <script>
-import CategoryBookListItem from "./CategoryBookListItem";
+import BookCard from "./BookCard";
 
 export default {
-  name: "CategoryBookList",
+  name: "BookGrid",
   components: {
-    CategoryBookListItem,
+    BookCard,
   },
 };
 </script>
@@ -26,5 +26,7 @@ ul {
   flex-wrap: wrap;
   padding: 1em;
   gap: 1em;
+  padding-left: 3em;  /* 讓整排往右 */
+  margin-top: 0.1em;
 }
 </style>
