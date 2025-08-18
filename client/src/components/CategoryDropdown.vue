@@ -21,7 +21,10 @@
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'books', query: getQuery({ category: category.category })}"
+            :to="{
+              name: 'books',
+              query: getQuery({ category: category.category }),
+            }"
             class="category-dropdown unselected-link"
           >
             {{ category.category }}
@@ -41,7 +44,7 @@ export default {
       const filteredQuery = { ...this.$route.query };
 
       // 遍歷 newQuery，如果值是 null 就刪掉對應的 query
-      Object.keys(newQuery).forEach(key => {
+      Object.keys(newQuery).forEach((key) => {
         if (newQuery[key] === null) {
           delete filteredQuery[key];
         } else {
@@ -55,14 +58,14 @@ export default {
       }
 
       return filteredQuery;
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
 .categories-button {
-  background-color: #B55A30; /* 調整 category 按鈕顏色 */
+  background-color: #b55a30; /* 調整 category 按鈕顏色 */
   color: #ffffff;
   float: left;
   width: 150px;

@@ -32,12 +32,12 @@ export default {
 
 <style scoped>
 footer {
-  background: #A0522D;
+  background: #a0522d;
   display: grid;
   grid-template-columns: 33% 33% 33%;
   gap: 1em;
-  padding: 7px 12px;      /* 新增 → 控制上下間距 */
-  align-items: center;    /* 新增 → 讓三欄內容垂直置中 */
+  padding: 7px 12px; /* 新增 → 控制上下間距 */
+  align-items: center; /* 新增 → 讓三欄內容垂直置中 */
 }
 
 .copyright {
@@ -62,7 +62,7 @@ footer {
 
 .links a:hover,
 .links router-link:hover {
-  color: #FFD700;          /* hover 時金色 */
+  color: #ffd700; /* hover 時金色 */
 }
 
 .social-media-icons {
@@ -80,6 +80,6 @@ footer {
 }
 
 .social-media-icons-link:hover {
-  color: #FFD700;          /* hover 時金色 */
+  color: #ffd700; /* hover 時金色 */
 }
 </style>

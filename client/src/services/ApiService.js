@@ -7,7 +7,7 @@ export default {
     const url = `${API_BASE_URL}/books`;
 
     console.log("GET from " + url);
-    
+
     return fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -50,7 +50,7 @@ export default {
     const url = `${API_BASE_URL}/categories`;
 
     console.log("GET from " + url);
-    
+
     return fetch(url)
       .then((response) => {
         if (response.ok) {

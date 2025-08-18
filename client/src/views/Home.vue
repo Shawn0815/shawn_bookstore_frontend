@@ -48,28 +48,25 @@ export default { name: "Home" };
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    rgba(0, 0, 0, 0.1),
-    rgba(0, 0, 0, 0.1)
-  );
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
   z-index: 5;
 }
 
 /* 文字置中 */
 .hero-text {
   position: absolute;
-  top: 25%;   /* 上移一點 */
+  top: 25%; /* 上移一點 */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
 
   font-size: 2rem;
   font-weight: 400;
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   color: #fff;
 
   /* 讓文字有陰影，避免背景太亮時消失 */
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
   z-index: 10; /* 確保蓋在圖片上 */
 }
 
@@ -79,13 +76,11 @@ export default { name: "Home" };
   font-style: italic;
   font-weight: 600;
   color: #fdfdfd;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
-  
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 .hero-text h1 a {
-  text-decoration: none;  /* 移除底線 */
-  color: inherit;         /* 跟 h1 一樣的顏色 */
+  text-decoration: none; /* 移除底線 */
+  color: inherit; /* 跟 h1 一樣的顏色 */
 }
-
 </style>

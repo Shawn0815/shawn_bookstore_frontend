@@ -9,7 +9,9 @@
 
       <li v-for="item in $store.state.cart.items" :key="item.book.bookId">
         <div class="cart-book-image">
-          <router-link :to="{ name: 'bookDetail', params: { id: item.book.bookId } }">
+          <router-link
+            :to="{ name: 'bookDetail', params: { id: item.book.bookId } }"
+          >
             <img
               :src="item.book.imageUrl"
               :alt="item.book.title"
@@ -18,9 +20,7 @@
           </router-link>
         </div>
         <div class="cart-book-title">{{ item.book.title }}</div>
-        <div class="cart-book-price">
-          ${{ item.book.price }}
-        </div>
+        <div class="cart-book-price">${{ item.book.price }}</div>
         <div class="cart-book-quantity">
           <button
             class="icon-button dec-button"
@@ -37,9 +37,7 @@
             <i class="fas fa-plus-circle"></i>
           </button>
         </div>
-        <div class="subtotal">
-          ${{ (item.quantity * item.book.price) }}
-        </div>
+        <div class="subtotal">${{ item.quantity * item.book.price }}</div>
         <!--price times quantity-->
       </li>
       <div class="row-sep"></div>
@@ -48,9 +46,7 @@
         <div class="cart-book-quantity" style="text-align: center">
           {{ $store.state.cart.numberOfItems }}
         </div>
-        <div class="cart-book-price">
-          ${{ $store.state.cart.subtotal}}
-        </div>
+        <div class="cart-book-price">${{ $store.state.cart.subtotal }}</div>
       </li>
     </ul>
   </div>

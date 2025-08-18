@@ -28,7 +28,9 @@ export default {
 </script>
 
 <style>
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
   margin: 0;
 }
@@ -44,13 +46,13 @@ app-header {
 }
 
 .main-container {
-  flex: 1;             /* 撐開剩餘空間 */
+  flex: 1; /* 撐開剩餘空間 */
   display: flex;
   flex-direction: column;
   background-color: var(--secondary-background-color);
 }
 
 app-footer {
-  flex-shrink: 0;      /* Footer 固定在最下方 */
+  flex-shrink: 0; /* Footer 固定在最下方 */
 }
 </style>

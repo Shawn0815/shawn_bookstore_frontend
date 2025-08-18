@@ -7,7 +7,7 @@
       <category-nav></category-nav>
       <book-grid></book-grid>
     </div>
-    
+
     <page-bar
       :current-page="$store.state.currentPage"
       :total-pages="$store.state.totalPages"
@@ -15,9 +15,7 @@
   </div>
 </template>
 
-
 <script>
-
 import CategoryNav from "@/components/CategoryNav";
 import BookGrid from "@/components/BookGrid";
 import PageBar from "@/components/PageBar";
@@ -39,18 +37,20 @@ export default {
       Object.entries({
         category: this.$route.query.category,
         search: this.$route.query.search,
-        orderBy: this.$route.query.orderBy,
-        sort: this.$route.query.sort,
-        page: this.$route.query.page,     // 新增
-        limit: this.$route.query.limit    // 新增
+        sortBy: this.$route.query.sortBy,
+        order: this.$route.query.order,
+        page: this.$route.query.page, // 新增
+        limit: this.$route.query.limit, // 新增
       }).filter(([, v]) => v !== undefined && v !== "")
     );
 
-    if (filters) { // 如果有篩選條件
-      this.$store.dispatch("fetchBooksByFilter", filters)
-      .catch(function () {self.$router.push("/404"); //'/404' triggers NotFound
+    if (filters) {
+      // 如果有篩選條件
+      this.$store.dispatch("fetchBooksByFilter", filters).catch(function () {
+        self.$router.push("/404"); //'/404' triggers NotFound
       });
-    } else { // 如果沒有參數
+    } else {
+      // 如果沒有參數
       this.$store.dispatch("fetchAllBooks").catch(function () {
         self.$router.push("/404"); //'/404' triggers NotFound
       });
@@ -66,5 +66,4 @@ export default {
   flex-direction: row;
   flex-grow: 1;
 }
-
 </style>

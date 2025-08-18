@@ -26,7 +26,7 @@ ul {
   flex-wrap: wrap;
   padding: 1em;
   gap: 1em;
-  padding-left: 3em;  /* 讓整排往右 */
+  padding-left: 3em; /* 讓整排往右 */
   margin-top: 0.1em;
 }
 </style>

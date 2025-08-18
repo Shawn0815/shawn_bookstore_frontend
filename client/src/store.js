@@ -17,7 +17,7 @@ export default new Vuex.Store({
     currentPage: 1,
     totalPages: 1,
     orderDetails: null,
-    cart: new ShoppingCart()
+    cart: new ShoppingCart(),
   },
   mutations: {
     SET_ALL_BOOKS(state, books) {
@@ -33,8 +33,8 @@ export default new Vuex.Store({
       state.selectedCategoryName = categoryName;
     },
     SET_CURRENT_PAGE(state, page) {
-    state.currentPage = page;
-  },
+      state.currentPage = page;
+    },
     SET_TOTAL_PAGES(state, total) {
       state.totalPages = total;
     },
@@ -77,7 +77,7 @@ export default new Vuex.Store({
         .then((result) => {
           console.log("All books: ", result.books);
           context.commit("SET_ALL_BOOKS", result.books);
-          context.commit('SET_BOOKS', result.books); // 預設顯示所有書籍
+          context.commit("SET_BOOKS", result.books); // 預設顯示所有書籍
         })
         .catch((reason) => {
           console.log("Error fetching all books:", reason);

@@ -80,7 +80,7 @@ class ShoppingCart {
    */
   addItem(book /*: Object */, quantity = 1) {
     let existingItem = this._items.find(
-      item => item.book.bookId == book.bookId
+      (item) => item.book.bookId == book.bookId
     );
     if (!existingItem) {
       let newItem = new ShoppingCartItem(book);
@@ -105,7 +105,7 @@ class ShoppingCart {
     if (quantity < 0 || quantity > 99) return;
 
     let existingItemIndex = this._items.findIndex(
-      item => item.book.bookId == book.bookId
+      (item) => item.book.bookId == book.bookId
     );
     if (existingItemIndex !== -1) {
       if (quantity !== 0) {
@@ -119,13 +119,13 @@ class ShoppingCart {
 
   toJSON() {
     return {
-      items: ShoppingCart.frozenArray(this._items)
+      items: ShoppingCart.frozenArray(this._items),
     };
   }
 
   static frozenArray(inArray) {
     let tempArr = [];
-    Object.keys(inArray).forEach(element => {
+    Object.keys(inArray).forEach((element) => {
       tempArr.push(inArray[element]);
     });
     return Object.freeze(tempArr);

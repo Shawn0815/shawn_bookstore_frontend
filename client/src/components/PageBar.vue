@@ -37,7 +37,7 @@ import { mapState } from "vuex";
 export default {
   name: "PageBar",
   computed: {
-    ...mapState(["currentPage", "totalPages"])
+    ...mapState(["currentPage", "totalPages"]),
   },
   methods: {
     getPageLink(pageNumber) {
@@ -49,11 +49,11 @@ export default {
         path: this.$route.path,
         query: {
           ...this.$route.query,
-          page: pageNumber
-        }
+          page: pageNumber,
+        },
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -71,7 +71,7 @@ export default {
 }
 
 .pagination-container a:hover {
-  background-color: #8B4513; 
+  background-color: #8b4513;
   color: #fff;
 }
 
@@ -92,7 +92,7 @@ export default {
 }
 
 .page-link.active {
-  background-color: #8B4513; /* 深咖啡色呼應 header */
+  background-color: #8b4513; /* 深咖啡色呼應 header */
   color: white;
   font-weight: bold;
 }

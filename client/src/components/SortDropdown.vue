@@ -1,7 +1,7 @@
 <template>
   <div class="sort-dropdown">
-    <button 
-      class="button sort-button" 
+    <button
+      class="button sort-button"
       style="float: left"
       @click="goDefaultSort"
     >
@@ -12,7 +12,10 @@
       <li>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: getQuery({ orderBy: 'published_date' , sort: 'desc' }) }"
+          :to="{
+            name: 'books',
+            query: getQuery({ orderBy: 'published_date', sort: 'desc' }),
+          }"
           class="sort-dropdown unselected-link"
         >
           最新（預設）
@@ -21,7 +24,10 @@
       <li>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: getQuery({ orderBy: 'published_date', sort: 'asc' }) }"
+          :to="{
+            name: 'books',
+            query: getQuery({ orderBy: 'published_date', sort: 'asc' }),
+          }"
           class="sort-dropdown unselected-link"
         >
           最舊
@@ -30,7 +36,10 @@
       <li>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: getQuery({ orderBy: 'price', sort: 'asc' }) }"
+          :to="{
+            name: 'books',
+            query: getQuery({ orderBy: 'price', sort: 'asc' }),
+          }"
           class="sort-dropdown unselected-link"
         >
           價格 ↑
@@ -39,7 +48,10 @@
       <li>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: getQuery({ orderBy: 'price', sort: 'desc' }) }"
+          :to="{
+            name: 'books',
+            query: getQuery({ orderBy: 'price', sort: 'desc' }),
+          }"
           class="sort-dropdown unselected-link"
         >
           價格 ↓
@@ -48,7 +60,10 @@
       <li>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: getQuery({ orderBy: 'stock', sort: 'asc' }) }"
+          :to="{
+            name: 'books',
+            query: getQuery({ orderBy: 'stock', sort: 'asc' }),
+          }"
           class="sort-dropdown unselected-link"
         >
           庫存 ↑
@@ -57,7 +72,10 @@
       <li>
         <router-link
           tabindex="1"
-          :to="{ name: 'books', query: getQuery({ orderBy: 'stock', sort: 'desc' }) }"
+          :to="{
+            name: 'books',
+            query: getQuery({ orderBy: 'stock', sort: 'desc' }),
+          }"
           class="sort-dropdown unselected-link"
         >
           庫存 ↓
@@ -74,20 +92,21 @@ export default {
     currentSortText() {
       const { orderBy, sort } = this.$route.query;
       if (!orderBy) return "排序"; // 預設文字
-      if (orderBy === "published_date" && sort === "desc") return "最新（預設）";
+      if (orderBy === "published_date" && sort === "desc")
+        return "最新（預設）";
       if (orderBy === "published_date" && sort === "asc") return "最舊";
       if (orderBy === "price" && sort === "asc") return "價格 ↑";
       if (orderBy === "price" && sort === "desc") return "價格 ↓";
       if (orderBy === "stock" && sort === "asc") return "庫存 ↑";
       if (orderBy === "stock" && sort === "desc") return "庫存 ↓";
       return "排序";
-    }
+    },
   },
   methods: {
     getQuery(newQuery) {
       const filteredQuery = { ...this.$route.query };
 
-      Object.keys(newQuery).forEach(key => {
+      Object.keys(newQuery).forEach((key) => {
         if (newQuery[key] === null) {
           delete filteredQuery[key];
         } else {
@@ -106,16 +125,16 @@ export default {
       // 導航回預設排序
       this.$router.push({
         name: "books",
-        query: this.getQuery({ orderBy: null, sort: null })
+        query: this.getQuery({ orderBy: null, sort: null }),
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
 .sort-button {
-  background-color: #B55A30;
+  background-color: #b55a30;
   color: #ffffff;
   float: left;
   width: 150px;

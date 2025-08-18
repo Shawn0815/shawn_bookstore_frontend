@@ -5,10 +5,7 @@
       class="empty-cart-page"
     >
       <div style="padding: 3em 1.5em">Your cart is empty.</div>
-      <router-link
-        tabindex="1"
-        :to="{name: 'books'}"
-      >
+      <router-link tabindex="1" :to="{ name: 'books' }">
         <button class="button continue-shop-buttons">Continue Shopping</button>
       </router-link>
     </section>
@@ -24,10 +21,7 @@
         {{ $store.state.cart.subtotal | asDollarsAndCents }}.
       </p>
       <div class="cart-buttons">
-        <router-link
-          tabindex="1"
-          :to="{name: 'books'}"
-        >
+        <router-link tabindex="1" :to="{ name: 'books' }">
           <button class="button continue-shop-buttons">
             Continue Shopping
           </button>

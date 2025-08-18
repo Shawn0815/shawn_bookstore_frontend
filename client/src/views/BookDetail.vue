@@ -2,7 +2,7 @@
   <div class="book-detail-container">
     <!-- 左側：圖片 + 作者資訊 -->
     <div class="book-left">
-      <img :src="book.imageUrl" alt="Book Cover" />
+      <img :src="book.imageUrl" alt="Book Cover" style="height: 330px" />
       <div class="book-info">
         <h1>{{ book.title }}</h1>
         <p><strong>作者：</strong>{{ book.author }}</p>
@@ -20,7 +20,7 @@
 
       <div class="purchase-box">
         <p class="purchase-label">購買電子書</p>
-        <p class="purchase-price">您的價格 NT$285 TWD</p>
+        <p class="purchase-price">您的價格 ${{ book.price }} 元</p>
         <div class="quantity-selector">
           <button @click="decreaseQuantity">-</button>
           <input type="number" v-model.number="quantity" />
@@ -37,20 +37,20 @@ export default {
   data() {
     return {
       book: {},
-      quantity: 1
+      quantity: 1,
     };
   },
   created() {
     const id = this.$route.params.id;
     fetch(`http://localhost:8080/books/${id}`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         this.book = data;
       });
   },
   methods: {
     formatDate(date) {
-      if (!date) return '';
+      if (!date) return "";
       return new Date(date).toLocaleDateString();
     },
     increaseQuantity() {
@@ -62,8 +62,8 @@ export default {
     addToCart() {
       console.log(`加入購物車: ${this.book.title} x ${this.quantity}`);
       this.$store.dispatch("addToCart", this.book);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -139,7 +139,7 @@ export default {
 }
 
 .purchase-price {
-  color: #B55A30;
+  color: #b55a30;
   font-weight: bold;
   margin: 0 0 15px 0;
 }
@@ -169,7 +169,7 @@ export default {
 
 .add-cart-button {
   width: 100%;
-  background-color: #B55A30;
+  background-color: #b55a30;
   color: white;
   border: none;
   padding: 8px 0;
@@ -179,6 +179,6 @@ export default {
 }
 
 .add-cart-button:hover {
-  background-color: #A04828;
+  background-color: #a04828;
 }
 </style>

@@ -41,7 +41,7 @@ class ShoppingCartItem {
   toJSON() {
     return {
       book: this._book,
-      quantity: this._quantity
+      quantity: this._quantity,
     };
   }
 }

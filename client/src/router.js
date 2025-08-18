@@ -29,7 +29,7 @@ export default new Router({
     {
       path: "/books/:id", // 動態路由，id 為書籍編號
       name: "bookDetail",
-      component: BookDetail
+      component: BookDetail,
     },
     {
       path: "/cart",

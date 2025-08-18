@@ -2,9 +2,10 @@
   <nav class="category-nav">
     <ul class="category-buttons unselected-category-button">
       <!-- 增加所有書及標籤 -->
-      <li v-if=!$route.query.category
-          class="button category-buttons selected-category-button"
-          id="button selected-category-button"
+      <li
+        v-if="!$route.query.category"
+        class="button category-buttons selected-category-button"
+        id="button selected-category-button"
       >
         所有書籍
       </li>
@@ -19,7 +20,7 @@
       </li>
       <template v-for="category in $store.state.categories">
         <!-- key 為 category 本身，因為從 categories 取出的元素本身就是字串 -->
-         <!-- 決定顯示 slected 設定的方式：用 query 判斷路由是否有 category 參數 -->
+        <!-- 決定顯示 slected 設定的方式：用 query 判斷路由是否有 category 參數 -->
         <li
           :key="category.category"
           v-if="$route.query.category === category.category"
@@ -32,7 +33,10 @@
           <!-- 跳轉到 /books?category=category變數 -->
           <router-link
             tabindex="1"
-            :to="{ name: 'books', query: getQuery({ category: category.category })}"
+            :to="{
+              name: 'books',
+              query: getQuery({ category: category.category }),
+            }"
             class="button category-buttons unselected-category-button"
           >
             {{ category.category }}
@@ -52,7 +56,7 @@ export default {
       const filteredQuery = { ...this.$route.query };
 
       // 遍歷 newQuery，如果值是 null 就刪掉對應的 query
-      Object.keys(newQuery).forEach(key => {
+      Object.keys(newQuery).forEach((key) => {
         if (newQuery[key] === null) {
           delete filteredQuery[key];
         } else {
@@ -66,7 +70,7 @@ export default {
       }
 
       return filteredQuery;
-    }
+    },
   },
 };
 </script>
